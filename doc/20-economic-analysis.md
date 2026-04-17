@@ -59,12 +59,13 @@ IntraCycleTx(S, msg) -> S'
   S'.pool               = S.pool       (unchanged intra-cycle)
 ```
 
-When treasury is at cap, the treasury portion redirects to burn:
+When treasury is at cap, the treasury portion redirects to pool:
 
 ```
-  if S.treasury >= TREASURY_CAP:
-      to_burn += to_treasury
-      to_treasury = 0
+  if S.treasury + to_treasury > TREASURY_CAP:
+      treasury_excess = (S.treasury + to_treasury) - TREASURY_CAP
+      to_treasury = to_treasury - treasury_excess
+      S.pool += treasury_excess
 ```
 
 ### Cycle Boundary Transition

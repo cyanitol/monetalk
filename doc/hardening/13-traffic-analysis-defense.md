@@ -120,13 +120,13 @@ cover_traffic_loop cfg = forever $ do
 
 #### 2.2.3 Cover Traffic Rate Parameters
 
-| Privacy Level | Rate (msgs/sec) | Rate (msgs/epoch, 120s) | Bandwidth Overhead |
+| Privacy Level | Rate (msgs/sec) | Rate (msgs/epoch, 600s) | Bandwidth Overhead |
 |---------------|-----------------|-------------------------|--------------------|
 | LOW | 0 (disabled) | 0 | 0 |
-| MEDIUM | 1/30 (~0.033) | ~4 | ~4 KB / 120s (~0.27 kbps) |
-| HIGH | 1/5 (0.20) | ~24 | ~24 KB / 120s (~1.6 kbps) |
+| MEDIUM | 1/30 (~0.033) | ~20 | ~20 KB / 600s (~0.27 kbps) |
+| HIGH | 1/5 (0.20) | ~120 | ~120 KB / 600s (~1.6 kbps) |
 
-The existing Dandelion++ spec (`doc/08-dandelion.md` line 93) defines 1 dummy per epoch as a baseline. The MEDIUM level increases this to ~4/epoch; HIGH to ~24/epoch.
+The existing Dandelion++ spec (`doc/08-dandelion.md` line 93) defines 1 dummy per epoch as a baseline. The MEDIUM level increases this to ~20/epoch; HIGH to ~120/epoch.
 
 #### 2.2.4 Formal Traffic Indistinguishability
 
@@ -138,9 +138,9 @@ The existing Dandelion++ spec (`doc/08-dandelion.md` line 93) defines 1 dummy pe
 
 where `T_active` is the trace during an active conversation and `T_idle` is the trace during idle (cover traffic only), with failure probability at most `delta`.
 
-**Claim 2.1.** At MEDIUM privacy level (cover rate 1/30 Hz) with real message rate <= 1/30 Hz, the cover traffic makes active and idle periods `(0.15, 2^{-40})`-indistinguishable over any 120-second observation window.
+**Claim 2.1.** At MEDIUM privacy level (cover rate 1/30 Hz) with real message rate <= 1/30 Hz, the cover traffic makes active and idle periods `(0.15, 2^{-40})`-indistinguishable over any 120-second observation window within an epoch.
 
-**Proof sketch.** Under the Poisson cover model, the idle traffic follows `Poisson(4)` per epoch. Active traffic adds at most 4 real messages per epoch (matching the cover rate). The combined active trace follows `Poisson(8)`. The adversary must distinguish `Poisson(4)` from `Poisson(8)` in a single epoch. The total variation distance between `Poisson(4)` and `Poisson(8)` is bounded by `sqrt(1 - e^{-(8-4)^2 / (2*4)}) ~ 0.15` (Pinsker's inequality applied to Poisson KL divergence). Over multiple epochs, accumulation is mitigated by the independent randomness per epoch.
+**Proof sketch.** Over a 120-second sub-window, the idle traffic follows `Poisson(4)`. Active traffic adds at most 4 real messages (matching the cover rate), giving a combined active trace of `Poisson(8)`. The adversary must distinguish `Poisson(4)` from `Poisson(8)` in a single window. The total variation distance between `Poisson(4)` and `Poisson(8)` is bounded by `sqrt(1 - e^{-(8-4)^2 / (2*4)}) ~ 0.15` (Pinsker's inequality applied to Poisson KL divergence). Over longer observation periods spanning multiple sub-windows, accumulation is mitigated by the independent randomness of each Poisson interval. Note: the Dandelion++ epoch duration (600 seconds) governs relay peer rotation, not this indistinguishability window — the cover traffic rate (1/30 Hz) is continuous and independent of epoch boundaries.
 
 When real message rate exceeds the cover rate, the excess is visible. Users sending at high rates should increase their cover rate or use constant-rate mode (section 11, HIGH privacy level).
 
@@ -654,7 +654,7 @@ For `R_c = 1/30`, `R_real = 1/30`, `W = 120`:
 TV(Poisson(4), Poisson(8)) ~ 0.15
 ```
 
-This is the fundamental limit of MEDIUM privacy: the adversary has a ~15% advantage per epoch in detecting active conversation.
+This is the fundamental limit of MEDIUM privacy: the adversary has a ~15% advantage per 120-second observation window in detecting active conversation.
 
 ### 10.3 Information-Theoretic Leakage Summary
 

@@ -304,7 +304,7 @@ the effective stem length is shorter than it would be with relayers alone.
 This makes it extremely difficult for a network observer to determine
 which node originated a transaction.
 
-Every 120 seconds, each node randomly selects new relay peers and randomly
+Every 600 seconds, each node randomly selects new relay peers and randomly
 decides whether to act as a relayer (forward stems) or a diffuser
 (immediately broadcast). This periodic reshuffling prevents long-term
 traffic analysis.
@@ -312,7 +312,7 @@ traffic analysis.
 ### 5.3 Cover Traffic
 
 Nodes optionally generate one dummy message per Dandelion++ epoch (every
-120 seconds). These dummy messages are encrypted, padded to standard size,
+600 seconds). These dummy messages are encrypted, padded to standard size,
 and indistinguishable from real messages during the stem phase. They are
 discarded before block inclusion. This prevents an observer from
 distinguishing active users from idle ones based on traffic patterns.

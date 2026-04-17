@@ -713,28 +713,15 @@ prop_all_invariants s0 actions =
 
 This proof follows `doc/06-economics.md` as the authoritative specification.
 
-**Rebate allocation (fundamental disagreement):** doc/06 (line 114)
-specifies the 5/35 fee portion as a "user rebate pool" distributed to
-active users at cycle end.  doc/20 (lines 52–58) names this same 5/35
-portion `to_stakers` and adds it to the `staked` field, treating it as
-a staking reward rather than a user rebate.  These are fundamentally
-different destinations (user balances vs staking pool).  **This proof
-follows doc/06 as authoritative:** rebates accumulate in `rebate_accum`
-during the cycle, then `CycleBoundary` distributes them into user
-`balances'`.  Any future implementation must resolve this specification
-conflict between doc/06 and doc/20.
+**Rebate allocation (resolved):** doc/20 now uses `to_rebate` consistent
+with doc/06's specification of the 5/35 fee portion as a "user rebate pool"
+distributed to active users at cycle end.
 
-The following areas where doc/20 is less specific than doc/06:
+**Treasury overflow (resolved):** doc/20 now redirects treasury overflow
+to pool, consistent with doc/06 (lines 182–189).
 
-1. **Treasury overflow (fundamental disagreement):** doc/20 (lines 62–68)
-   redirects treasury overflow to burn (`to_burn += to_treasury`), while
-   doc/06 (lines 182–189) specifies overflow goes to pool.  This proof
-   follows doc/06: overflow is redirected to pool.
-
-2. **Balance reset at cycle boundary:** doc/20 (lines 42–50) does not
-   explicitly state that unspent balances are absorbed into the pool.
-   doc/06 (line 317) specifies balance reset with absorption.  This proof
-   follows doc/06: `CycleBoundary` resets balances to rewards + rebates,
-   with unspent prior balances absorbed via the pool restoration formula.
-
-These gaps should be resolved by updating doc/20 to match doc/06.
+**Balance reset at cycle boundary:** doc/20 (lines 42–50) does not
+explicitly state that unspent balances are absorbed into the pool.
+doc/06 (line 317) specifies balance reset with absorption.  This proof
+follows doc/06: `CycleBoundary` resets balances to rewards + rebates,
+with unspent prior balances absorbed via the pool restoration formula.
