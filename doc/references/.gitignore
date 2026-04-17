@@ -1,0 +1,4 @@
+# PDF reference files are fetched locally and not committed to git.
+# Run fetch-open-access.sh to download freely available standards/RFCs.
+# Remaining papers must be obtained from their publishers.
+*.pdf
