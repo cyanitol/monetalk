@@ -588,7 +588,7 @@ This makes the punishment payoff deeply negative, further strengthening cooperat
 
 **Trigger Strategy Implementation.** The protocol *automatically* implements grim trigger strategies through the punitive multiplier system:
 
-- **Tier 1** (P *= 0.9): Mild punishment, recovery in ~3 cycles. Acts as a "tit-for-tat" response.
+- **Tier 1** (P *= 0.9): Mild punishment, recovery in ~2 cycles (22 days). Acts as a "tit-for-tat" response.
 - **Tier 2** (P *= 0.5): Moderate punishment, recovery in ~22 cycles (242 days). Acts as a stronger deterrent.
 - **Tier 3** (P = 0 for 10 cycles + 25% slash): Near-grim trigger. The validator is economically expelled.
 

@@ -521,7 +521,7 @@ punitive factor (a multiplier on effective stake):
 
 | Tier | Trigger | Penalty | Recovery |
 |------|---------|---------|----------|
-| 1 (Minor) | Traffic > 2x median | 10% effective stake reduction | ~3 cycles (33 days) |
+| 1 (Minor) | Traffic > 2x median | 10% effective stake reduction | ~2 cycles (22 days) |
 | 2 (Moderate) | Traffic > 5x median | 50% effective stake reduction | ~22 cycles (242 days) |
 | 3 (Severe) | Traffic > 10x median | Zero effective stake for 10 cycles + 25% slashed | Re-registration required |
 

@@ -43,7 +43,7 @@ Where `P_floor` depends on penalty tier:
 
 | Tier | Offense | P_floor | Recovery to P > 0.95 |
 |------|---------|---------|----------------------|
-| Tier 1 (minor: brief downtime) | 1st/2nd | 0.3 | 3 cycles (33 days) |
+| Tier 1 (minor: brief downtime) | 1st/2nd | 0.3 | ~2 cycles (22 days) |
 | Tier 2 (moderate: repeated downtime, missed attestations) | 3rd+ | 0.1 | ~22 cycles (242 days) |
 | Tier 3 (severe: equivocation, double-signing) | Any | 0.0 | Never (must re-stake) |
 
