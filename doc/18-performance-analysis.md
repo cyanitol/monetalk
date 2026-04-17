@@ -18,7 +18,7 @@ Each block carries up to 4,444 message transactions (each at 1 KB). Therefore:
 - **Global chain throughput: ~80.8 messages/second**
 - Per day: 80.8 × 86,400 = **~6,981,120 messages/day**
 - Per 11-day cycle: ~6.98M × 11 = **~76.8 million messages/cycle**
-- Full block size: 4,444 × 1,024 = 4,550,656 bytes (**~4.55 MB** / ~4.34 MiB, documented as ~4.44 MB)
+- Full block size: 4,444 × 1,024 = 4,550,656 bytes (**~4.44 MB**)
 - Compact block size: **~50-130 KB** (with 95%+ mempool hit rate)
 
 This represents an **808x improvement** over the original spec (~0.1 msg/sec).
@@ -190,9 +190,9 @@ Stem-phase relay adds minimal overhead because each node relays a transaction to
 
 Cover traffic (dummy transactions to mask real transaction timing):
 
-- Rate: 1 dummy transaction per 120 seconds
+- Rate: 1 dummy transaction per 600 seconds
 - Size: 1 KB per dummy
-- **Rate: 1 KB / 120s = ~8.3 bytes/s per node — negligible**
+- **Rate: 1 KB / 600s = ~1.7 bytes/s per node — negligible**
 
 ### Peak Bandwidth (Initial Sync)
 
