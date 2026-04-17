@@ -11,8 +11,8 @@
 |--------|-------|--------|
 | INITIAL_SUPPLY | 11,000,000,000 MTK | economics line 5 |
 | BASE_STAKE | 50,000 MTK | economics line 388 |
-| BURN_RATE | 0.65 (default), range [0.20, 0.80] | economics line 528 |
-| FEE_FLOOR | 10 MTK (default), range [5, 100] | economics line 529 |
+| BURN_RATE | 0.65 (default), range [0.20, 0.80] | economics line 107 |
+| FEE_FLOOR | 10 MTK (default), range [5, 100] | economics line 176 |
 | FAUCET_GRANT | min(10,000, reserve/capacity) MTK | economics line 365 |
 | REFERRAL_BONUS | 10% of referred user fees | economics line 265 |
 | REBATE_RATE | (1 - burn_rate) * 5/35 | economics line 244 |
@@ -895,8 +895,8 @@ maximum profitable Sybil deployment.  []
 | INITIAL_SUPPLY = 11B | doc/06-economics.md | 5 |
 | BASE_STAKE = 50,000 | doc/06-economics.md | 388 |
 | Quadratic formula S(n) = 50,000*n^2 | doc/06-economics.md | 389 |
-| Burn rate range [0.20, 0.80] | doc/06-economics.md | 528 (proof-04 line 510) |
-| Fee floor range [5, 100] | doc/06-economics.md | 529 (proof-04 line 513) |
+| Burn rate range [0.20, 0.80] | doc/06-economics.md | 107 (proof-04 line 34) |
+| Fee floor range [5, 100] | doc/06-economics.md | 176 (proof-04 line 35) |
 | Faucet grant formula | doc/06-economics.md | 365 |
 | PoW spec (Argon2id) | doc/06-economics.md | 374-384 |
 | Referral bonus 10% | doc/06-economics.md | 265 |
