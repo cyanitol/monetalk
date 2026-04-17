@@ -738,7 +738,7 @@ pi_A(H, H) = (PoolAllocation / N) * P_tier2 + V_censor
            = (PoolAllocation / N) * 0.5 + V_censor
 ```
 
-Condition (i) holds when $V_{\text{censor}} < 0.5 \cdot \text{PoolAllocation}/N$. For a network with 1000 validators and pool ≈ 7.9B MTK: threshold $\approx 0.5 \cdot 6.75B/1000 \approx 3.38M$ MTK. The adversarial strategy can only invade if the off-protocol censorship value exceeds ~3.38M MTK per cycle — a very high bar for a private messaging system.
+Condition (i) holds when $V_{\text{censor}} < 0.5 \cdot \text{PoolAllocation}/N$. For a network with 1000 validators and pool ≈ 7.9B MTK: threshold $\approx 0.5 \cdot (7.9 \cdot 0.85)B/1000 = 0.5 \cdot 6.715B/1000 \approx 3.36M$ MTK. The adversarial strategy can only invade if the off-protocol censorship value exceeds ~3.38M MTK per cycle — a very high bar for a private messaging system.
 
 **Replicator Dynamics.**
 

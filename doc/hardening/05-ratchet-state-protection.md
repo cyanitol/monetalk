@@ -391,9 +391,9 @@ refresh), the following checks run:
 ```haskell
 verifyStateIntegrity :: SessionState -> Either IntegrityError ()
 verifyStateIntegrity st = do
-    -- Counter monotonicity (Section 10, Invariant 1)
-    when (rsSendN (ssRatchet st) < 0) $
-        Left CounterUnderflow
+    -- Counter overflow check (Section 10, Invariant 1)
+    when (rsSendN (ssRatchet st) >= maxBound) $
+        Left CounterOverflow
 
     -- Skipped key bound
     when (Map.size (rsSkippedKeys (ssRatchet st)) > 1000) $

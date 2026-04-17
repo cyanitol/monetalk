@@ -74,13 +74,20 @@ The controller adjusts cycle parameters based on how the previous cycle performe
 ```
 duration_ratio = actual_cycle_slots / target_cycle_slots
 
-burn_rate(N+1)    = clamp(burn_rate(N) * duration_ratio,    0.20,  0.80)
-fee_floor(N+1)    = clamp(fee_floor(N) / duration_ratio,    5,     100)
-fee_ceiling(N+1)  = clamp(fee_ceiling(N) / duration_ratio,  5000,  50000)
-target_msgs(N+1)  = clamp(target_msgs(N) * duration_ratio,  1000,  100000000)
+-- Step 1: Compute raw targets (clamped to bounds)
+burn_rate_raw(N+1)    = clamp(burn_rate(N) * duration_ratio,    0.20,  0.80)
+fee_floor_raw(N+1)    = clamp(fee_floor(N) / duration_ratio,    5,     100)
+fee_ceiling_raw(N+1)  = clamp(fee_ceiling(N) / duration_ratio,  5000,  50000)
+target_msgs_raw(N+1)  = clamp(target_msgs(N) * duration_ratio,  1000,  100000000)
+
+-- Step 2: Apply 50% damping (prevents oscillation)
+burn_rate(N+1)    = burn_rate(N)    + 0.5 * (burn_rate_raw(N+1)    - burn_rate(N))
+fee_floor(N+1)    = fee_floor(N)    + 0.5 * (fee_floor_raw(N+1)    - fee_floor(N))
+fee_ceiling(N+1)  = fee_ceiling(N)  + 0.5 * (fee_ceiling_raw(N+1)  - fee_ceiling(N))
+target_msgs(N+1)  = target_msgs(N)  + 0.5 * (target_msgs_raw(N+1)  - target_msgs(N))
 ```
 
-All adjustments are damped by 50%: the effective ratio used is `1.0 + 0.5 * (duration_ratio - 1.0)`.
+The two-step process first clamps the raw target to parameter bounds, then moves 50% of the way from the current value toward the clamped target. This matches the authoritative formulation in `doc/06-economics.md` lines 151-162.
 
 ### Throughput Context
 

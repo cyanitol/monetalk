@@ -507,12 +507,13 @@ static int detect_tsc_anomaly(void) {
         return 0;
     }
 
-    uint64_t delta = now - last_tsc;
+    uint64_t prev_tsc = last_tsc;
     last_tsc = now;
+    uint64_t delta = now - prev_tsc;
 
     /* Normal inter-call delta: < 2^{32} cycles (~1 second at 4 GHz).
      * A suspend/resume or clone causes delta >> 2^{32} or wraps. */
-    if (delta > (1ULL << 40) || now < last_tsc) {
+    if (delta > (1ULL << 40) || now < prev_tsc) {
         return 1;  /* anomaly detected */
     }
     return 0;

@@ -124,9 +124,9 @@ Sources (priority order):
 2. Peer median (median of last 10 block timestamps)
 ```
 
-Tolerance: +-1 second
+Clock sync tolerance: +-1 second (NTP/peer median adjustment threshold)
 
-Reject blocks: timestamp > +-11s from expected slot time
+Block validity window: +-11s from expected slot time (blocks outside this window are rejected regardless of clock sync)
 
 ## Chat API (JSON-RPC over WebSocket)
 

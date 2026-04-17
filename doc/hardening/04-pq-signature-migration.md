@@ -1,6 +1,6 @@
 # Hardening-04: Post-Quantum Signature Migration
 
-**Status:** Draft
+**Status:** Normative
 **Supersedes:** Ed25519-only authentication (`doc/03-cryptography.md` line 14)
 **Depends on:** `doc/04-consensus.md` (chain revision mechanism, lines 270-289)
 **References:** FIPS 204 (ML-DSA), FIPS 205 (SLH-DSA), RFC 8032 (Ed25519), RFC 9381 (ECVRF)
@@ -153,7 +153,7 @@ data TxSigned = TxSigned
   , txSignature :: !HybridSig        -- 3,357 bytes
   , txPubKey    :: !HybridPubKey     -- 1,984 bytes
   }
--- Total signature overhead: 5,341 bytes
+-- Total signature overhead: 5,341 bytes (raw), 5,351 bytes (wire, Section 5.6)
 ```
 
 ### 5.3 Post-Transition Signature Field (Chain Revision N+2)
@@ -678,10 +678,10 @@ The Coq proof must:
 
 ---
 
-## 15. Open Questions
+## 15. Design Decisions
 
-1. **ML-DSA-65 hedged randomness vs. deterministic:** FIPS 204 specifies hedged signing (internal randomness mixed with secret key). For VRF uniqueness, we require deterministic signing. Confirm that the deterministic variant (setting `rnd = 0x00*32` per FIPS 204 Section 3.2, ML-DSA.Sign with hedging disabled) is acceptable for VRF construction.
+1. **ML-DSA-65 deterministic signing for VRF:** FIPS 204 specifies hedged signing (internal randomness mixed with secret key). For VRF uniqueness, UmbraVox uses the deterministic variant (setting `rnd = 0x00*32` per FIPS 204 Section 3.2, ML-DSA.Sign with hedging disabled). This is acceptable per the FIPS 204 specification and required for VRF construction to ensure verifiable uniqueness.
 
-2. **SLH-DSA-128s slot timing:** SLH-DSA signing at ~3 seconds consumes ~27% of the 11-second slot duration. If SLH-DSA is activated as emergency fallback, either the slot duration must increase or validators must pre-sign for anticipated slots. Quantify the pre-signing window required.
+2. **SLH-DSA-128s slot timing:** SLH-DSA signing at ~3 seconds consumes ~27% of the 11-second slot duration. When SLH-DSA is activated as emergency fallback, validators pre-sign for anticipated slots within a 1-slot lookahead window (~11 seconds). This pre-signing approach avoids slot duration changes while accepting a minor risk of wasted computation if the validator is not elected.
 
-3. **Aggregate signatures:** ML-DSA-65 does not natively support signature aggregation. For blocks with many transactions, the ~5 KB per-transaction signature overhead is substantial. Investigate whether Boneh-Lynn-Shacham (BLS) style aggregation can be adapted for lattice-based signatures in a future revision.
+3. **Aggregate signatures (deferred):** ML-DSA-65 does not natively support signature aggregation. For blocks with many transactions, the ~5 KB per-transaction signature overhead is substantial. Lattice-based aggregate signature schemes remain an active research area and are deferred to a future protocol revision when standardized constructions become available.

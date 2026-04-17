@@ -91,8 +91,8 @@ Deliverables stored in `test/evidence/formal-proofs/`.
 | Verification Plan | `doc/16-verification-plan.md` | Test strategy |
 | Coverage Reports | `test/coverage/` | MC/DC analysis |
 | Verification Evidence | `test/evidence/` | Test results, formal proofs |
-| Configuration Index | `doc/configuration-index.md` | Baselines, versions |
-| Quality Assurance Records | `doc/quality-assurance.md` | Reviews, audits |
+| Configuration Index | `doc/configuration-index.md` (created Phase 7) | Baselines, versions |
+| Quality Assurance Records | `doc/quality-assurance.md` (created Phase 7) | Reviews, audits |
 
 ## Tool Qualification
 
@@ -131,7 +131,7 @@ Per DO-178C Section 11.1, the safety assessment feeds into system-level safety a
 | Consensus failure (chain forks, double-spend) | Major | A | Byzantine quorum exceeded, VRF bias |
 | Message loss (messages not delivered/recoverable) | Major | A | Truncation error, WAL corruption |
 
-The safety assessment is maintained in `doc/safety-assessment.md` and reviewed at each phase gate.
+The safety assessment is maintained in `doc/safety-assessment.md` (created Phase 7) and reviewed at each phase gate.
 
 ## Industry-Standard Security Practices
 

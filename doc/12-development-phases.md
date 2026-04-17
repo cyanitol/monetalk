@@ -1,8 +1,8 @@
 # Development Phases (DO-178C DAL A + Code Generation)
 
-## Revised Timeline: 53-67 Weeks
+## Revised Timeline: 62-67 Weeks
 
-Code generation reduces hand-coding burden by ~15 weeks compared to pure hand-implementation (63-81 weeks). DO-178C adds formal verification and traceability overhead.
+Code generation reduces hand-coding burden by ~10-14 weeks compared to pure hand-implementation (73-81 weeks). DO-178C adds formal verification and traceability overhead.
 
 ## Phase 0: Cryptographic Primitives + Code Generator (Weeks 1-10)
 
